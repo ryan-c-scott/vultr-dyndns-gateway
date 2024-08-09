@@ -1,0 +1,8 @@
+services:
+  vultr-gateway:
+    build: .
+    working_dir: /app
+    environment:
+    ports:
+      - 8080:8080
+      

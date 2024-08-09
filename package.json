@@ -1,0 +1,16 @@
+{
+  "name": "vultr-dyndns-gateway",
+  "version": "1.0.0",
+  "description": "Vultr API gateway for DynDNS",
+  "main": "node.js",
+  "scripts": {
+    "start": "node node.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.3",
+    "express": "^4.19.2"
+  }
+}
