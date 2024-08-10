@@ -4,6 +4,8 @@ const app = express();
 
 // Define your API key and base URL
 const API_KEY = process.env.API_KEY;
+const DDNS_USER = process.env.DDNS_USER;
+const DDNS_PASS = process.env.DDNS_PASS;
 const BASE_URL = 'https://api.vultr.com/v2';
 const PORT = process.env.PORT || 8080;
 const SUBDOMAIN = process.env.SUBDOMAIN || "dyndns";
@@ -65,10 +67,19 @@ async function update(domain, hostname, ip) {
 
 //
 app.get('/update', (req, res) => {
-  const args = req.query;
-  const result = update(args.domain, args.host, args.ip);
+  try {
+    const args = req.query;
 
-  res.send(result);
+    if(args.user != DDNS_USER || args.pass != DDNS_PASS) {
+      throw new Error(`DDNS Auth Failure`);
+    }
+
+    const result = update(args.domain, args.host, args.ip);
+    res.send(result);
+  }
+  catch (error) {
+    console.error('Error:', error);
+  }
 });
 
 //

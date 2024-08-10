@@ -6,9 +6,13 @@ The primary intention of this service is to provide a limited access API key for
     environment:
         - API_KEY=
         - SUBDOMAIN=
+        - DDNS_USER=
+        - DDNS_PASS=
 
 `API_KEY` is your Vultr API key. Keep this as safe as you can.
 `SUBDOMAIN` [default: `dyndns`] is the subdomain appended to the `host` provided in the call.
+`DDNS_USER` user name to allow for calls
+`DDNS_PASS` password to verify user with
 
 Entries that do not exist will be ignored, so it will be necessary to create your dynamic entries ahead of time. This is a minor security precaution.
 *Note: You can enter the whole portion as `host.subdomain` in the Vultr web interface*
@@ -19,6 +23,8 @@ The `GET` API is based on DynDNS for maximum compatibility with routers and othe
 Basic HTTP auth is something necessary for the user to provide and it is recommended both do that and reverse proxying with HTTPS to this service.
 
 *`GET` Request Parameters*
+`user` user matching `DDNS_USER`
+`pass` password matching `DDNS_PASS`
 `domain` specifies the base domain you have setup as your DNS in Vultr (eg. `example.org`)
 `host` is the name of the host entry, without the `SUBDOMAIN` part (eg. `remote`)
 `ip` is the IPV4 address to update the entry with
@@ -27,7 +33,7 @@ The FQDN as set by the gateway in Vultr will be `HOST.SUBDOMAIN.DOMAIN`
 
 ## Example
 ```
-curl "http://localhost:8080/update?domain=example.org&host=test&ip=1.2.3.4"
+curl "http://localhost:8080/update?user=me&pass=passworddomain=example.org&host=test&ip=1.2.3.4"
 ```
 
 The resultant FQDN would be `test.dyndns.example.org` with IP 1.2.3.4
