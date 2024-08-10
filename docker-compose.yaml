@@ -1,8 +1,5 @@
 services:
   vultr-gateway:
     build: .
-    working_dir: /app
-    environment:
-    ports:
-      - 8080:8080
+    image: sjc.vultrcr.com/5pmcasual/vultr-dyndns-gateway:latest
       
