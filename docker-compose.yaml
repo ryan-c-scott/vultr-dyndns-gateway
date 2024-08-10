@@ -2,4 +2,5 @@ services:
   vultr-gateway:
     build: .
     image: sjc.vultrcr.com/5pmcasual/vultr-dyndns-gateway:latest
-      
+    ports:
+      - 8080:8080

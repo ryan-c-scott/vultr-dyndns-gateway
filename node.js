@@ -6,7 +6,6 @@ const app = express();
 const API_KEY = process.env.API_KEY;
 const BASE_URL = 'https://api.vultr.com/v2';
 const PORT = process.env.PORT || 8080;
-const DOMAIN = process.env.DOMAIN || "example.org";
 const SUBDOMAIN = process.env.SUBDOMAIN || "dyndns";
 
 //
@@ -17,7 +16,7 @@ async function getDnsRecords(domain) {
   return response.data;
 }
 
-// Function to update DNS record
+// 
 async function updateDnsRecord(domain, recordId, hostname, newIp) {
   const response = await axios.patch(`${BASE_URL}/domains/${domain}/records/${recordId}`, {
     name: hostname,
@@ -33,7 +32,7 @@ async function updateDnsRecord(domain, recordId, hostname, newIp) {
   return response.data;
 }
 
-// Main function
+// 
 async function update(domain, hostname, ip) {
   try {
     const records = await getDnsRecords(domain);
@@ -67,7 +66,7 @@ async function update(domain, hostname, ip) {
 //
 app.get('/update', (req, res) => {
   const args = req.query;
-  const result = update(DOMAIN, args.domain, args.ip);
+  const result = update(args.domain, args.host, args.ip);
 
   res.send(result);
 });
